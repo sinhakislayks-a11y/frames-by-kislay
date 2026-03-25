@@ -11,43 +11,83 @@ import { useState, useEffect, useRef } from "react";
 const WORKS = [
   {
     id: 1,
-    title: "SaaS Onboarding Reel",
-    client: "Fintech Founder",
+    title: "Talking Head Reel",
+    client: "Creator",
     type: "Talking Head",
-    duration: "0:42",
-    tags: ["Hook Surgery", "Retention Edit"],
-    thumb: "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=600&q=80",
-    embedUrl: "YOUR_LINK_1",
+    duration: "Reel",
+    tags: ["Hook Edit", "Pacing", "Subtitles"],
+    thumb: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80",
+    embedUrl: "https://www.instagram.com/reel/DVa6Me2jrBc/",
   },
   {
     id: 2,
-    title: "Product Launch Reel",
-    client: "B2B SaaS",
+    title: "SaaS Reel",
+    client: "SaaS Founder",
     type: "Short-form",
-    duration: "0:31",
-    tags: ["Done-For-You", "Motion Graphics"],
-    thumb: "https://images.unsplash.com/photo-1536240478700-b869ad10e128?w=600&q=80",
-    embedUrl: "YOUR_LINK_2",
+    duration: "Reel",
+    tags: ["Pattern Interrupt", "Retention", "Color Grade"],
+    thumb: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80",
+    embedUrl: "https://www.instagram.com/reel/DVL9ELrjmx8/",
   },
   {
     id: 3,
-    title: "Personal Brand Series",
-    client: "Agency Founder",
+    title: "Talking Head — Full Length",
+    client: "Content Creator",
     type: "Talking Head",
-    duration: "0:58",
-    tags: ["Retention Engine", "Subtitles"],
-    thumb: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80",
-    embedUrl: "YOUR_LINK_3",
+    duration: "Reel",
+    tags: ["Storytelling", "Pacing", "Subtitles"],
+    thumb: "https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?w=600&q=80",
+    embedUrl: "https://www.instagram.com/reel/DVHW8UfDuHy/",
   },
   {
     id: 4,
-    title: "Cinematic Brand Film",
-    client: "D2C Brand",
-    type: "Brand Film",
-    duration: "1:24",
-    tags: ["Color Grade", "Cinematography"],
+    title: "Podcast Edit",
+    client: "Podcast Creator",
+    type: "Podcast",
+    duration: "YT Video",
+    tags: ["Multi-cam", "Subtitles", "Pacing"],
+    thumb: "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=600&q=80",
+    embedUrl: "https://youtu.be/0wbCelgbSXA",
+  },
+  {
+    id: 5,
+    title: "Before & After Hook Edit",
+    client: "Creator",
+    type: "Before & After",
+    duration: "Reel",
+    tags: ["Hook Surgery", "Retention Edit"],
+    thumb: "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=600&q=80",
+    embedUrl: "https://www.instagram.com/reel/DQb44Z2iL4u/",
+  },
+  {
+    id: 6,
+    title: "Talking Head — YouTube",
+    client: "YouTube Creator",
+    type: "Talking Head",
+    duration: "YT Video",
+    tags: ["Long-form", "Color Grade", "Pacing"],
     thumb: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600&q=80",
-    embedUrl: "YOUR_LINK_4",
+    embedUrl: "https://youtu.be/0zUVwJraRds",
+  },
+  {
+    id: 7,
+    title: "Crypto Zoo — Documentary",
+    client: "YouTube Channel",
+    type: "Documentary",
+    duration: "YT Video",
+    tags: ["Voiceover Edit", "Storytelling", "Motion Graphics"],
+    thumb: "https://images.unsplash.com/photo-1536240478700-b869ad10e128?w=600&q=80",
+    embedUrl: "https://youtu.be/bUiUUlQ83ig",
+  },
+  {
+    id: 8,
+    title: "Motion Graphics Reel",
+    client: "Brand Project",
+    type: "Motion Graphics",
+    duration: "Reel",
+    tags: ["After Effects", "Animation", "Motion Design"],
+    thumb: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80",
+    embedUrl: "https://drive.google.com/file/d/1TNBqqefOgng1wU3SGPg9D2L2Zzbq43b6/view?usp=sharing",
   },
 ];
 
@@ -432,9 +472,16 @@ function HomePage({ setPage }) {
 
 function WorkCard({ work, index, onClick }) {
   const [hovered, setHovered] = useState(false);
+  const handleClick = () => {
+    if (work.embedUrl) {
+      window.open(work.embedUrl, "_blank", "noopener noreferrer");
+    } else if (onClick) {
+      onClick();
+    }
+  };
   return (
     <div
-      onClick={onClick}
+      onClick={handleClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{ position: "relative", cursor: "pointer", overflow: "hidden", aspectRatio: "9/16", maxHeight: "420px" }}
@@ -474,7 +521,7 @@ function WorkCard({ work, index, onClick }) {
 
 function WorkPage({ setPage }) {
   const [activeFilter, setActiveFilter] = useState("All");
-  const filters = ["All", "Talking Head", "Short-form", "Brand Film"];
+  const filters = ["All", "Talking Head", "Short-form", "Documentary", "Podcast", "Motion Graphics", "Before & After"];
   const filtered = activeFilter === "All" ? WORKS : WORKS.filter(w => w.type === activeFilter);
 
   return (
